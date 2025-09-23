@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmmx3f1sjajrm"]
+
+[ext_resource type="Texture2D" uid="uid://bxkvq8mmhsq4s" path="res://Player/Sprites/Skateboarder.png" id="1_e1rxb"]
+[ext_resource type="Script" uid="uid://couw4yhp58wt6" path="res://Player/skater.gd" id="1_gto5a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gto5a"]
+friction = 0.12
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ci4g"]
+radius = 11.0
+height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pfqg0"]
+radius = 3.0
+height = 74.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gto5a"]
+radius = 3.1622777
+
+[node name="Skater" type="RigidBody2D"]
+mass = 60.0
+physics_material_override = SubResource("PhysicsMaterial_gto5a")
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 3
+angular_damp_mode = 1
+script = ExtResource("1_gto5a")
+jump_force_x = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_e1rxb")
+
+[node name="CollisionSkater" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -6)
+shape = SubResource("CapsuleShape2D_3ci4g")
+
+[node name="CollisionShapeSkateboard" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, 35)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_pfqg0")
+
+[node name="CollisionFrontWheel" type="CollisionShape2D" parent="."]
+position = Vector2(19, 41)
+shape = SubResource("CircleShape2D_gto5a")
+
+[node name="CollisionRearWheel" type="CollisionShape2D" parent="."]
+position = Vector2(-22, 41)
+shape = SubResource("CircleShape2D_gto5a")
+
+[node name="CanJumpRay" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 34)
+target_position = Vector2(0, 27)
+
+[node name="OnGroundRayFront" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(19, 34)
+target_position = Vector2(0, 20)
+
+[node name="OnGroundRayRear" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-22, 33)
+target_position = Vector2(0, 20)
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://3r4p8rk6qqh6"]
+
+[ext_resource type="Texture2D" uid="uid://cqtfur30c66tq" path="res://Grandma/AngryGrandma.png" id="1_rmht1"]
+
+[node name="AngryGrandma" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("1_rmht1")
