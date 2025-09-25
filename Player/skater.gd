@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+signal was_hit
 # == Steuerungsvariablen (im Inspector anpassen) ==
 @export_group("Bewegung am Boden")
 @export var move_force: float = 800.0         # Kraft für die Beschleunigung
@@ -11,22 +12,24 @@ extends RigidBody2D
 @export_group("Physik & Stabilisierung")
 # Wie stark der Skater in der Luft rotiert werden kann
 @export var control_torque: float = 1000000.0
-# Wie stark sich der Skater am Boden selbst aufrichtet
-@export var stabilization_torque: float = 800000.0
+
 
 # == Node-Referenzen ==
 @onready var skateboard_shape: CollisionShape2D = %CollisionShapeSkateboard 
 @onready var can_jump_ray: RayCast2D = %CanJumpRay
 @onready var on_ground_ray_front: RayCast2D = %OnGroundRayFront
 @onready var on_ground_ray_rear: RayCast2D = %OnGroundRayRear
-@onready var collision_skater: CollisionShape2D = %CollisionSkater
 
+
+func _ready() -> void:
+	GameManager.register_player(self)
 
 func _physics_process(delta: float) -> void:
 	#_on_skater_hit()
 	# Hole die Eingabe des Spielers einmal pro Frame.
 	var move_direction = Input.get_axis("Move_Left", "Move_Right")
 	var torque_dir = Input.get_axis("Torque_Left", "Torque_Right")
+	
 	# Prüfe, ob der Skater am Boden ist.
 	if _is_on_ground():
 		# LOGIK AM BODEN
@@ -81,3 +84,20 @@ func _on_skater_hit() -> bool:
 	
 	print(self.get_colliding_bodies())
 	return false
+
+
+
+
+
+func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	if body.is_in_group("Projectiles"):
+		GameManager.on_player_hit()
+		return
+	
+	var shape_owner: Node2D = shape_owner_get_owner(local_shape_index)
+	#var hit_shape_name = shape_owner.name
+	#print(hit_shape_name)
+	if shape_owner.is_in_group("KillPlayer"):
+		print(shape_owner.get_groups())
+		print("You fell!")
+		GameManager.on_player_hit(GameManager.player_health)

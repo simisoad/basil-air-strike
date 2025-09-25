@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmmx3f1sjajrm"]
+[gd_scene load_steps=12 format=3 uid="uid://dmmx3f1sjajrm"]
 
 [ext_resource type="Texture2D" uid="uid://bxkvq8mmhsq4s" path="res://Player/Sprites/Skateboarder.png" id="1_e1rxb"]
 [ext_resource type="Script" uid="uid://couw4yhp58wt6" path="res://Player/skater.gd" id="1_gto5a"]
@@ -8,7 +8,24 @@ friction = 0.12
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ci4g"]
 radius = 11.0
-height = 74.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rva1s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3bpu6"]
+radius = 6.0
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wr34r"]
+radius = 4.457737
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0tber"]
+radius = 6.0
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tsqsm"]
+radius = 4.457737
+height = 25.274994
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pfqg0"]
 radius = 3.0
@@ -23,7 +40,9 @@ physics_material_override = SubResource("PhysicsMaterial_gto5a")
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 3
+linear_damp = 0.5
 angular_damp_mode = 1
+angular_damp = 2.0
 script = ExtResource("1_gto5a")
 jump_force_x = 200.0
 
@@ -31,10 +50,38 @@ jump_force_x = 200.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_e1rxb")
 
-[node name="CollisionSkater" type="CollisionShape2D" parent="."]
+[node name="CollisionSkaterBody" type="CollisionShape2D" parent="." groups=["KillPlayer"]]
 unique_name_in_owner = true
-position = Vector2(1, -6)
+position = Vector2(-4, -10)
 shape = SubResource("CapsuleShape2D_3ci4g")
+
+[node name="CollisionSkaterHead" type="CollisionShape2D" parent="." groups=["KillPlayer"]]
+unique_name_in_owner = true
+position = Vector2(5, -33)
+shape = SubResource("CircleShape2D_rva1s")
+
+[node name="CollisionSkaterLegUpperRear" type="CollisionShape2D" parent="." groups=["KillPlayer"]]
+unique_name_in_owner = true
+position = Vector2(-10, 9)
+shape = SubResource("CapsuleShape2D_3bpu6")
+
+[node name="CollisionSkaterLegLowerRear" type="CollisionShape2D" parent="." groups=["KillPlayer"]]
+unique_name_in_owner = true
+position = Vector2(-14.000002, 23.000002)
+rotation = 0.5439171
+shape = SubResource("CapsuleShape2D_wr34r")
+
+[node name="CollisionSkaterLegUpperFront" type="CollisionShape2D" parent="." groups=["KillPlayer"]]
+unique_name_in_owner = true
+position = Vector2(6, 4)
+rotation = -0.8342266
+shape = SubResource("CapsuleShape2D_0tber")
+
+[node name="CollisionSkaterLegLowerFront" type="CollisionShape2D" parent="." groups=["KillPlayer"]]
+unique_name_in_owner = true
+position = Vector2(11.000002, 20.000002)
+rotation = 0.27890038
+shape = SubResource("CapsuleShape2D_tsqsm")
 
 [node name="CollisionShapeSkateboard" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
@@ -66,3 +113,5 @@ position = Vector2(-22, 33)
 target_position = Vector2(0, 20)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

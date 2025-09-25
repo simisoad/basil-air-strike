@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdr2q2m2wik1b"]
 
-[ext_resource type="Script" uid="uid://bdheccsq24t8" path="res://world.gd" id="1_aqk2v"]
+[ext_resource type="Script" uid="uid://bdheccsq24t8" path="res://World/world.gd" id="1_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://dmmx3f1sjajrm" path="res://Player/Skater.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://polygon_2d.gd" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="3_tlwt5"]
@@ -22,5 +22,14 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 position = Vector2(90, 183)
 
-[node name="AngryGrandma" parent="." instance=ExtResource("3_tlwt5")]
+[node name="AngryGrandmas" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="AngryGrandma" parent="AngryGrandmas" instance=ExtResource("3_tlwt5")]
 position = Vector2(592, 104)
+
+[node name="AngryGrandma2" parent="AngryGrandmas" instance=ExtResource("3_tlwt5")]
+position = Vector2(1057, 173)
+
+[node name="AngryGrandma3" parent="AngryGrandmas" instance=ExtResource("3_tlwt5")]
+position = Vector2(1861, 118)
