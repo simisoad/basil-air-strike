@@ -1,51 +1,47 @@
 # GameManager.gd
 extends Node
-
-# Globale Zustandsvariablen
+#Signals
+signal player_hit_signal(p_remaining_health: int)
+signal player_died_signal
+signal score_updated_signal(p_new_score: int)
+signal game_restarted_signal
+signal next_level_signal(p_level: String)
+signal player_moved_signal(p_position: Vector2)
+signal object_shattered_signal(p_position: Vector2, p_effect: PackedScene)
+#Const
 const PLAYER_HEALTH_START: int = 10
+
 var player_health: int = PLAYER_HEALTH_START
 var score: int = 0
 var is_game_over: bool = false
 
-# Eine Referenz auf den Spieler, damit jeder, der sie braucht, hier nachfragen kann
-# statt selbst die Szene zu durchsuchen.
-var player_node: RigidBody2D = null
-
-# Das ist unsere zentrale "Event-Schaltfläche". Andere Nodes können diese Signale
-# senden, und wir (oder die UI) können darauf reagieren.
-signal player_hit(remaining_health)
-signal player_died
-signal score_updated(new_score)
-signal game_restarted
-
 func _ready() -> void:
-	# Hier könnte man das Laden/Anzeigen der UI anstoßen
+	self.score_updated_signal.connect(_on_score_update)
 	pass
 
-# Funktion, damit der Spieler sich bei uns registrieren kann
-func register_player(p_node: RigidBody2D) -> void:
-	player_node = p_node
+func _input(p_event: InputEvent) -> void:
+	if p_event.is_action_pressed("Reset"):
+		self._restart_game()
 
-# Diese Funktion wird aufgerufen, wenn der Spieler getroffen wird
-func on_player_hit(damage: int = 1) -> void:
-	if is_game_over: return
-	
-	player_health -= damage
-	emit_signal("player_hit", player_health)
-	print("Player hit! Health remaining: ", player_health)
+func on_player_hit(p_damage: int = 1) -> void:
+	if self.is_game_over: return
+	self.player_health -= p_damage
+	self.player_hit_signal.emit(self.player_health)
+	print("Player hit! Health remaining: ", self.player_health)
 	
 	if player_health <= 0:
-		is_game_over = true
-		emit_signal("player_died")
+		self.is_game_over = true
+		self.player_died_signal.emit()
 		print("Game Over!")
-		
 		# für den Anfagn einfach reset
-		restart_game()
+		_restart_game()
 
-# Funktion, um das Spiel zurückzusetzen
-func restart_game() -> void:
-	player_health = PLAYER_HEALTH_START
-	score = 0
-	is_game_over = false
-	emit_signal("game_restarted")
+func _restart_game() -> void:
+	self.player_health = self.PLAYER_HEALTH_START
+	self.score = 0
+	self.is_game_over = false
+	self.game_restarted_signal.emit()
 	print("Game Restarted!")
+	
+func _on_score_update(p_new_score: int) -> void:
+	self.score += p_new_score

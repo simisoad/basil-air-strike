@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dowwa5tfhqrrl"]
+
+[ext_resource type="Script" uid="uid://dcj5gq8gle60k" path="res://Levels/BaseLevel/BaseLevel.gd" id="1_nekfv"]
+[ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_2h7hq"]
+[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="3_0t0ry"]
+[ext_resource type="Script" uid="uid://de2sn2wrj8jbp" path="res://LevelBuilder/level_success.gd" id="3_j345y"]
+
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("grandmas", "player_start")]
+script = ExtResource("1_nekfv")
+grandmas = NodePath("Enemys/grandmas")
+player_start = NodePath("Logic/PlayerStart")
+metadata/_custom_type_script = "uid://dcj5gq8gle60k"
+
+[node name="Structures" type="Node2D" parent="."]
+
+[node name="StructurePolygon" type="Polygon2D" parent="Structures"]
+polygon = PackedVector2Array(146, 239, 216, 305, 573, 313, 570, 471, -15, 491, -21, 92, 110, 94)
+script = ExtResource("2_2h7hq")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="Enemys" type="Node2D" parent="."]
+
+[node name="grandmas" type="Node2D" parent="Enemys"]
+
+[node name="AngryGrandma" parent="Enemys/grandmas" instance=ExtResource("3_0t0ry")]
+position = Vector2(300, 78)
+
+[node name="Logic" type="Node2D" parent="."]
+
+[node name="PlayerStart" type="Marker2D" parent="Logic"]
+position = Vector2(79, 61)
+gizmo_extents = 20.0
+
+[node name="LevelSuccess" type="Area2D" parent="Logic" node_paths=PackedStringArray("collision_polygon_2D") groups=["LevelSuccess"]]
+position = Vector2(506, 125)
+script = ExtResource("3_j345y")
+collision_polygon_2D = NodePath("CollisionPolygon2D")
+metadata/_custom_type_script = "uid://de2sn2wrj8jbp"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Logic/LevelSuccess" groups=["LevelSuccess"]]
+polygon = PackedVector2Array(-85, -81, -76, 56, 175, 87, 167, -104)

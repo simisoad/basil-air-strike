@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://l2jn737ctl78"]
+
+[ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_kan3s"]
+
+[node name="Level01" instance=ExtResource("1_kan3s")]
+
+[node name="StructurePolygon" parent="Structures" index="0"]
+polygon = PackedVector2Array(146, 239, 216, 305, 573, 313, 570, 471, -15, 491, -97, 156, 14, 171)
+
+[node name="PlayerStart" parent="Logic" index="0"]
+position = Vector2(79, -11)
+
+[node name="LevelSuccess" parent="Logic" index="1"]
+position = Vector2(515, 251)
+next_level = "level01"
+
+[node name="CollisionPolygon2D" parent="Logic/LevelSuccess" index="0"]
+position = Vector2(-35, 21)

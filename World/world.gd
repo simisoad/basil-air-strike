@@ -1,58 +1,49 @@
 extends Node2D
-@onready var player_start: Marker2D
-@onready var skater_start_transform: Transform2D
-@onready var grandmas: Node2D
-@onready var level_container: Node2D = %LevelContainer
 
-var skater_packed: PackedScene = load('res://Player/Skater.tscn')
+@onready var player_start_transform: Transform2D
+@onready var current_level_container: Node2D = %CurrentLevelContainer
+@onready var level_manager: LevelManager = %LevelManager
+
+var player_packed: PackedScene = load('res://Player/player.tscn')
 var player: RigidBody2D
-var explosion_packed: PackedScene = load('res://Objects/pot_explode.tscn')
-
 
 func _ready() -> void:
-	_load_level()
-	await get_tree().process_frame
-	self.skater_start_transform = player_start.global_transform
+	await self.get_tree().process_frame
+	await _load_level()
 	_create_player()
-	_connect_grandma_signals()
-	GameManager.game_restarted.connect(_on_reset_skater)
-func _load_level()-> void:
-	var level_packed: PackedScene = load('res://Levels/level_01.tscn')
-	var current_level: Node2D = level_packed.instantiate()
-	level_container.add_child(current_level)
-	player_start = current_level.find_child("PlayerStart")
-	grandmas = current_level.find_child("AngryGrandmas")
-	
+	GameManager.game_restarted_signal.connect(_on_reset_skater)
+	GameManager.next_level_signal.connect(_on_next_level)
+
+#hmm, ok, what if when the first level isn't called tutorial enymore?
+func _load_level(p_next_level: String = "tutorial")-> void:
+	_check_has_current_level()
+	await self.get_tree().process_frame
+	var load_path: String = level_manager.get_level(p_next_level)
+	if not load_path:
+		push_error("Level: %s was not found in LevelManager!" % p_next_level )
+		return
+	var level_packed: PackedScene = load(load_path)
+	var current_level: BaseLevel = level_packed.instantiate() as BaseLevel
+	self.current_level_container.add_child(current_level)
+	await self.get_tree().process_frame
+	self.player_start_transform = current_level.player_start.global_transform
+
+func _check_has_current_level()->void:
+	if self.current_level_container.get_child_count() > 0:
+		var childs: Array = self.current_level_container.get_children()
+		for child: Node in childs:
+			child.queue_free()
+
 func _create_player() -> void:
-	player = skater_packed.instantiate()
-	player.global_transform = self.skater_start_transform
-	#await get_tree().process_frame
-	#self.add_child(player)
-	self.call_deferred("add_child", player)
-	
-func _connect_grandma_signals()-> void:
-	var all_childs: Array = self.grandmas.get_children()
-	for grandma in all_childs:
-		grandma.wants_to_throw_pot.connect(_on_grandma_wants_to_throw_pot)
-		
-func _on_grandma_wants_to_throw_pot(pot_scene: PackedScene, start_pos: Vector2, target_pos: Vector2) -> void:
-	var pot: RigidBody2D = pot_scene.instantiate()
-	pot.global_position = start_pos
-	self.add_child(pot)
-	pot.launch(target_pos, 1000)
-	pot.pot_shattered.connect(_on_pot_shattered)
-	
-func _on_pot_shattered(position: Vector2) -> void:
-	var explosion: GPUParticles2D = explosion_packed.instantiate()
-	explosion.global_position = position
-	self.add_child(explosion)
-	
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Reset"):
-		GameManager.restart_game()
-		
+	self.player = self.player_packed.instantiate()
+	self.player.global_transform = self.player_start_transform
+	self.call_deferred("add_child", self.player)
+
 func _on_reset_skater()-> void:
 	print("Resetting skater")
-	player.queue_free()
+	self.player.queue_free()
 	_create_player()
-	
+
+func _on_next_level(p_next_level: String)-> void:
+	await _load_level(p_next_level)
+	_on_reset_skater()

@@ -1,15 +1,19 @@
 extends CanvasLayer
 
-
 @onready var player_health: Label = %PlayerHealth
+@onready var score: Label = %Score
 
 func _ready() -> void:
 	_on_player_hit(GameManager.player_health)
-	GameManager.player_hit.connect(_on_player_hit)
-	GameManager.game_restarted.connect(_on_game_restarted)
+	GameManager.player_hit_signal.connect(_on_player_hit)
+	GameManager.game_restarted_signal.connect(_on_game_restarted)
+	GameManager.score_updated_signal.connect(_on_score_update)
 	
 func _on_player_hit(p_player_health: int) -> void:
-	player_health.text = str("Player Health: ", p_player_health)
+	self.player_health.text = str("Health: ", p_player_health)
 
 func _on_game_restarted() -> void:
-	player_health.text = str("Player Health: ", GameManager.PLAYER_HEALTH_START)
+	self.player_health.text = str("Health: ", GameManager.PLAYER_HEALTH_START)
+	
+func _on_score_update(_score: int) -> void:
+	self.score.text = str("Score: ", GameManager.score)

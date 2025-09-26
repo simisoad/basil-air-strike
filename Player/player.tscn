@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dmmx3f1sjajrm"]
 
-[ext_resource type="Texture2D" uid="uid://bxkvq8mmhsq4s" path="res://Player/Sprites/Skateboarder.png" id="1_e1rxb"]
-[ext_resource type="Script" uid="uid://couw4yhp58wt6" path="res://Player/skater.gd" id="1_gto5a"]
+[ext_resource type="Script" uid="uid://couw4yhp58wt6" path="res://Player/player.gd" id="1_4ntmi"]
+[ext_resource type="Texture2D" uid="uid://bxkvq8mmhsq4s" path="res://Player/Sprites/Skateboarder.png" id="2_btcbx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gto5a"]
 friction = 0.12
@@ -47,12 +47,12 @@ max_contacts_reported = 3
 linear_damp = 0.5
 angular_damp_mode = 1
 angular_damp = 2.0
-script = ExtResource("1_gto5a")
+script = ExtResource("1_4ntmi")
 jump_force_x = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_e1rxb")
+texture = ExtResource("2_btcbx")
 
 [node name="CollisionSkaterBody" type="CollisionShape2D" parent="." groups=["HurtPlayer"]]
 unique_name_in_owner = true
