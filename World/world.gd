@@ -1,17 +1,27 @@
 extends Node2D
-@onready var player_start: Marker2D = %PlayerStart
+@onready var player_start: Marker2D
 @onready var skater_start_transform: Transform2D
-@onready var grandmas: Node2D = %AngryGrandmas
+@onready var grandmas: Node2D
+@onready var level_container: Node2D = %LevelContainer
 
 var skater_packed: PackedScene = load('res://Player/Skater.tscn')
 var player: RigidBody2D
 var explosion_packed: PackedScene = load('res://Objects/pot_explode.tscn')
 
+
 func _ready() -> void:
+	_load_level()
+	await get_tree().process_frame
 	self.skater_start_transform = player_start.global_transform
 	_create_player()
 	_connect_grandma_signals()
 	GameManager.game_restarted.connect(_on_reset_skater)
+func _load_level()-> void:
+	var level_packed: PackedScene = load('res://Levels/level_01.tscn')
+	var current_level: Node2D = level_packed.instantiate()
+	level_container.add_child(current_level)
+	player_start = current_level.find_child("PlayerStart")
+	grandmas = current_level.find_child("AngryGrandmas")
 	
 func _create_player() -> void:
 	player = skater_packed.instantiate()

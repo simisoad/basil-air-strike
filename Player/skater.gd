@@ -20,6 +20,9 @@ signal was_hit
 @onready var on_ground_ray_front: RayCast2D = %OnGroundRayFront
 @onready var on_ground_ray_rear: RayCast2D = %OnGroundRayRear
 
+var player_fallen: bool = false
+
+
 
 func _ready() -> void:
 	GameManager.register_player(self)
@@ -93,11 +96,28 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 	if body.is_in_group("Projectiles"):
 		GameManager.on_player_hit()
 		return
+		
+
 	
 	var shape_owner: Node2D = shape_owner_get_owner(local_shape_index)
 	#var hit_shape_name = shape_owner.name
 	#print(hit_shape_name)
-	if shape_owner.is_in_group("KillPlayer"):
+	if shape_owner.is_in_group("HurtPlayer") and !player_fallen:
+		player_fallen = true
+		#Transform2D(rotation: float, position: Vector2)
+		
 		print(shape_owner.get_groups())
 		print("You fell!")
-		GameManager.on_player_hit(GameManager.player_health)
+		call_deferred("_player_falled")
+		# schlecht:
+		GameManager.on_player_hit(1)
+		
+func _player_falled() -> void:
+	await get_tree().process_frame
+	self.global_transform = Transform2D(0.0, self.global_position + Vector2(0, 15))
+	player_fallen = false
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("LevelSuccess"):
+		print("sali")

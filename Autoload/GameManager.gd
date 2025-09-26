@@ -2,8 +2,8 @@
 extends Node
 
 # Globale Zustandsvariablen
-const PLAYER_HEALTH_START: int = 3
-var player_health: int = 3
+const PLAYER_HEALTH_START: int = 10
+var player_health: int = PLAYER_HEALTH_START
 var score: int = 0
 var is_game_over: bool = false
 
