@@ -10,8 +10,9 @@ var player: RigidBody2D
 func _ready() -> void:
 	await self.get_tree().process_frame
 	await _load_level()
-	_create_player()
-	GameManager.game_restarted_signal.connect(_on_reset_skater)
+	_create_player(self.player_start_transform)
+	GameManager.game_restarted_signal.connect(_on_game_restarted)
+	GameManager.player_falled_signal.connect(_on_player_falled)
 	GameManager.next_level_signal.connect(_on_next_level)
 
 #hmm, ok, what if when the first level isn't called tutorial enymore?
@@ -34,16 +35,22 @@ func _check_has_current_level()->void:
 		for child: Node in childs:
 			child.queue_free()
 
-func _create_player() -> void:
+func _create_player(p_transform: Transform2D) -> void:
 	self.player = self.player_packed.instantiate()
-	self.player.global_transform = self.player_start_transform
+	self.player.global_transform = p_transform
 	self.call_deferred("add_child", self.player)
-
-func _on_reset_skater()-> void:
-	print("Resetting skater")
-	self.player.queue_free()
-	_create_player()
+	
+func _on_game_restarted()-> void:
+	if is_instance_valid(self.player):
+		self.player.queue_free()
+	_create_player(self.player_start_transform)
+	
+func _on_player_falled(p_fall_position: Vector2) -> void:
+	if is_instance_valid(self.player):
+		self.player.queue_free()
+	var reset_transform = Transform2D(0.0, p_fall_position + Vector2(0, -50)) # Etwas über dem Boden
+	_create_player(reset_transform)
 
 func _on_next_level(p_next_level: String)-> void:
 	await _load_level(p_next_level)
-	_on_reset_skater()
+	_on_game_restarted()

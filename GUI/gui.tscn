@@ -1,0 +1,136 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs3dgqyavuxvp"]
+
+[ext_resource type="Script" uid="uid://dqncwgaia3daq" path="res://GUI/gui.gd" id="1_egdk1"]
+[ext_resource type="PackedScene" uid="uid://dhkrcg2dcnh2e" path="res://GUI/HUD/hud.tscn" id="2_x71ey"]
+[ext_resource type="LabelSettings" uid="uid://pp428kdnkpsg" path="res://GUI/MainTitleLabelSettings.tres" id="3_x71ey"]
+
+[node name="GUI" type="CanvasLayer"]
+script = ExtResource("1_egdk1")
+
+[node name="HUD" parent="." instance=ExtResource("2_x71ey")]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu/CenterContainer"]
+custom_minimum_size = Vector2(230, 180)
+layout_mode = 2
+color = Color(0.6509804, 0.7882353, 0.33333334, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/CenterContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/CenterContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameTitelLabel" type="Label" parent="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Basil-Air-Strike"
+label_settings = ExtResource("3_x71ey")
+
+[node name="ButtonPlayGame" type="Button" parent="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Game
+"
+
+[node name="ButtonQuitGame" type="Button" parent="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Quit
+"
+
+[node name="PauseMenu" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/CenterContainer"]
+custom_minimum_size = Vector2(230, 130)
+layout_mode = 2
+color = Color(0.6509804, 0.7882353, 0.33333334, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/CenterContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GamePausedLabel" type="Label" parent="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Paused!"
+label_settings = ExtResource("3_x71ey")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="GameOverScreen" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ButtonPlayGame" to="." method="_on_button_play_game_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ButtonQuitGame" to="." method="_on_button_quit_game_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

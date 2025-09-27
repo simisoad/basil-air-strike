@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmk60u4fy03vy"]
+
+[ext_resource type="Script" uid="uid://bewf5al3d1m4v" path="res://Main/main.gd" id="1_qvhan"]
+[ext_resource type="PackedScene" uid="uid://cdr2q2m2wik1b" path="res://World/world.tscn" id="1_yh5la"]
+[ext_resource type="PackedScene" uid="uid://bs3dgqyavuxvp" path="res://GUI/gui.tscn" id="2_2w1kt"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_qvhan")
+
+[node name="World" parent="." instance=ExtResource("1_yh5la")]
+unique_name_in_owner = true
+process_mode = 1
+
+[node name="GUI" parent="." instance=ExtResource("2_2w1kt")]
+process_mode = 2

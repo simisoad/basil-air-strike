@@ -100,8 +100,7 @@ func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, 
 		GameManager.on_player_hit(self.fall_damage)
 		
 func _player_falled() -> void:
-	# nicht ideal, müsste spieler komplett reseten, aber mit fallposition
-	self.global_transform = Transform2D(0.0, self.global_position + Vector2(0, 5))
+	GameManager.player_falled_signal.emit(self.global_position)
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

@@ -4,10 +4,12 @@ extends Node
 signal player_hit_signal(p_remaining_health: int)
 signal player_died_signal
 signal score_updated_signal(p_new_score: int)
-signal game_restarted_signal
+signal game_restarted_signal #(p_health: int, p_score: int)
 signal next_level_signal(p_level: String)
 signal player_moved_signal(p_position: Vector2)
 signal object_shattered_signal(p_position: Vector2, p_effect: PackedScene)
+signal player_falled_signal(p_fall_position: Vector2)
+
 #Const
 const PLAYER_HEALTH_START: int = 10
 
@@ -17,7 +19,11 @@ var is_game_over: bool = false
 
 func _ready() -> void:
 	self.score_updated_signal.connect(_on_score_update)
-	pass
+	GameStateManager.start_game_signal.connect(_restart_game)
+	#for HUD:
+	await self.get_tree().process_frame
+	self.player_hit_signal.emit(self.player_health)
+	self.score_updated_signal.emit(self.score)
 
 func _input(p_event: InputEvent) -> void:
 	if p_event.is_action_pressed("Reset"):
@@ -40,7 +46,9 @@ func _restart_game() -> void:
 	self.player_health = self.PLAYER_HEALTH_START
 	self.score = 0
 	self.is_game_over = false
-	self.game_restarted_signal.emit()
+	self.game_restarted_signal.emit() #(self.player_health, self.score)
+	self.score_updated_signal.emit(self.score)
+	self.player_hit_signal.emit(self.player_health)
 	print("Game Restarted!")
 	
 func _on_score_update(p_new_score: int) -> void:
