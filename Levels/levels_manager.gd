@@ -44,3 +44,6 @@ func update_and_save_progress(p_newly_unlocked_level: String):
 
 func get_first_level() -> String:
 	return self._level_order[0]
+	
+func get_all_levels() -> Array[String]:
+	return self._level_order

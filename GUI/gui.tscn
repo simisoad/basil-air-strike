@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="MainMenu/CenterContainer"]
-custom_minimum_size = Vector2(230, 180)
+custom_minimum_size = Vector2(230, 200)
 layout_mode = 2
 color = Color(0.6509804, 0.7882353, 0.33333334, 1)
 
@@ -59,6 +59,7 @@ text = "Basil-Air-Strike"
 label_settings = ExtResource("3_x71ey")
 
 [node name="ButtonContinueGame" type="Button" parent="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Continue Game
 "
@@ -67,6 +68,10 @@ text = "Continue Game
 layout_mode = 2
 text = "New Game
 "
+
+[node name="ButtonLevelSelect" type="Button" parent="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Select Level"
 
 [node name="ButtonQuitGame" type="Button" parent="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
 process_mode = 3
@@ -93,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="PauseMenu/CenterContainer"]
-custom_minimum_size = Vector2(230, 130)
+custom_minimum_size = Vector2(230, 200)
 layout_mode = 2
 color = Color(0.6509804, 0.7882353, 0.33333334, 1)
 
@@ -147,9 +152,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="GameOverScreen/CenterContainer"]
-custom_minimum_size = Vector2(230, 130)
+custom_minimum_size = Vector2(230, 200)
 layout_mode = 2
-color = Color(0.6509804, 0.7882353, 0.33333334, 0.32941177)
+color = Color(0.6509804, 0.7882353, 0.33333334, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="GameOverScreen/CenterContainer/ColorRect"]
 layout_mode = 1
@@ -182,10 +187,71 @@ text = "Retry Level"
 layout_mode = 2
 text = "Main Menu"
 
+[node name="LevelSelect" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelect/CenterContainer"]
+custom_minimum_size = Vector2(230, 200)
+layout_mode = 2
+color = Color(0.6509804, 0.7882353, 0.33333334, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelect/CenterContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelect/CenterContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectLevelLabel" type="Label" parent="LevelSelect/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Select Level:"
+label_settings = ExtResource("3_x71ey")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectMenuButton" type="OptionButton" parent="LevelSelect/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlaySelectedLevel" type="Button" parent="LevelSelect/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play selected Level"
+
+[node name="MainMenuButton" type="Button" parent="LevelSelect/CenterContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
 [connection signal="pressed" from="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ButtonContinueGame" to="." method="_on_button_continue_game_pressed"]
 [connection signal="pressed" from="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ButtonNewGame" to="." method="_on_button_new_game_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ButtonLevelSelect" to="." method="_on_button_level_select_pressed"]
 [connection signal="pressed" from="MainMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ButtonQuitGame" to="." method="_on_button_quit_game_pressed"]
 [connection signal="pressed" from="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenu/CenterContainer/ColorRect/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="GameOverScreen/CenterContainer/ColorRect/MarginContainer/VBoxContainer/RetryLevel" to="." method="_on_retry_level_pressed"]
 [connection signal="pressed" from="GameOverScreen/CenterContainer/ColorRect/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="LevelSelect/CenterContainer/ColorRect/MarginContainer/VBoxContainer/PlaySelectedLevel" to="." method="_on_play_selected_level_pressed"]
+[connection signal="pressed" from="LevelSelect/CenterContainer/ColorRect/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

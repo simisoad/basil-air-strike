@@ -1,6 +1,6 @@
 extends Node
 
-enum State { MAIN_MENU, PLAYING, PAUSED, GAME_OVER }
+enum State { MAIN_MENU, PLAYING, PAUSED, GAME_OVER, LEVEL_SELECT }
 
 signal state_changed_signal(new_state)
 signal quit_game_signal()
@@ -26,5 +26,7 @@ func _input(event: InputEvent) -> void:
 		elif current_state == State.PAUSED:
 			change_state(State.PLAYING)
 		elif current_state == State.GAME_OVER:
+			change_state(State.MAIN_MENU)
+		elif self.current_state == State.LEVEL_SELECT:
 			change_state(State.MAIN_MENU)
 			
