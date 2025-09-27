@@ -18,6 +18,7 @@ extends RigidBody2D
 
 @export_group("Player Health")
 @export var fall_damage: int = 1
+@export var pot_damage: int = 1
 
 @export_group("Player scoring")
 @export var score_360: int = 1000
@@ -29,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	_player_inputs(delta)
 	#send the global_position for enemys
 	GameManager.player_moved_signal.emit(self.global_position)
+	
 
 func _player_inputs(delta: float) -> void:
 	if _is_on_ground():
@@ -77,7 +79,7 @@ func _track_rotation(p_delta: float) -> void:
 func _on_landed() -> void:
 	var degrees = rad_to_deg(self.total_rotation_in_air)
 	if abs(degrees) >= 350: # Ein bisschen Toleranz
-		GameManager.score_updated_signal.emit(self.score_360)
+		GameManager.score_add_signal.emit(self.score_360)
 	self.total_rotation_in_air = 0.0
 
 func _is_on_ground() -> bool:
@@ -91,7 +93,7 @@ func _can_jump() -> bool:
 func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, local_shape_index: int) -> void:
 	# evtl. nicht so optimales SRP?
 	if body.is_in_group("Projectiles"):
-		GameManager.on_player_hit()
+		GameManager.on_player_hit(pot_damage)
 		return
 	var shape_owner: Node2D = shape_owner_get_owner(local_shape_index)
 

@@ -26,7 +26,7 @@ func _on_player_moved(p_position: Vector2) -> void:
 	self.last_known_player_position = p_position
 	
 func _on_timer_timeout() -> void:
-	if not GameManager.is_game_over:
+	if GameStateManager.current_state == GameStateManager.State.PLAYING:
 		self.wants_to_throw_pot_signal.emit(
 			self.basil_pot_packed,
 			self.pot_pos.global_position,

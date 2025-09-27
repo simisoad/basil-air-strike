@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameStateManager="*res://Autoload/GameStateManager.gd"
 GameManager="*res://Autoload/GameManager.gd"
+LevelsManager="*res://Levels/levels_manager.gd"
 Debug="*res://debug.gd"
 
 [editor_plugins]

@@ -6,10 +6,7 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qvhan")
-
-[node name="World" parent="." instance=ExtResource("1_yh5la")]
-unique_name_in_owner = true
-process_mode = 1
+world_scene = ExtResource("1_yh5la")
 
 [node name="GUI" parent="." instance=ExtResource("2_2w1kt")]
-process_mode = 2
+process_mode = 3
