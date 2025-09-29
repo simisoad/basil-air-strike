@@ -8,11 +8,11 @@ signal score_updated_signal(p_new_score: int)
 signal game_restarted_signal #(p_health: int, p_score: int)
 signal next_level_signal(p_level: String)
 signal player_moved_signal(p_position: Vector2)
-signal object_shattered_signal(p_position: Vector2, p_effect: PackedScene)
+signal object_shattered_signal(p_position: Vector2, p_effect: PackedScene, shatter_sound: ShatterSound)
 signal player_falled_signal(p_fall_position: Vector2)
 
 #Const
-const PLAYER_HEALTH_START: int = 3
+const PLAYER_HEALTH_START: int = 300
 #vars:
 var player_health: int = PLAYER_HEALTH_START
 var score: int = 0
@@ -28,8 +28,10 @@ func _ready() -> void:
 	self.score_updated_signal.emit(self.score)
 
 func _input(p_event: InputEvent) -> void:
-	if p_event.is_action_pressed("Reset"):
-		self._restart_game()
+	if Debug.reset_per_input:
+		if GameStateManager.current_state == GameStateManager.State.PLAYING:
+			if p_event.is_action_pressed("Reset"):
+				self._restart_game()
 
 func on_player_hit(p_damage: int) -> void:
 	if GameStateManager.current_state != GameStateManager.State.PLAYING:

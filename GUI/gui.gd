@@ -20,7 +20,6 @@ func _set_level_to_select() -> void:
 		if level == LevelsManager.load_highest_level():
 			return
 
-
 func _check_is_continue_possible() -> void:
 	if LevelsManager.load_highest_level() == "tutorial":
 		button_continue_game.disabled = true

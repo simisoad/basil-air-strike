@@ -1,11 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://l2jn737ctl78"]
+[gd_scene load_steps=3 format=3 uid="uid://l2jn737ctl78"]
 
 [ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_kan3s"]
+[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="2_kgbs1"]
 
 [node name="Level01" instance=ExtResource("1_kan3s")]
 
 [node name="StructurePolygon" parent="Structures" index="0"]
-polygon = PackedVector2Array(146, 239, 216, 305, 573, 313, 570, 471, -15, 491, -97, 156, 14, 171)
+polygon = PackedVector2Array(-63, 40, 164, 38, 167, 521, 665, 373, 659, 94, 971, 77, 1012, 606, -136, 615, -53, 48)
+
+[node name="AngryGrandma2" parent="Enemys/grandmas" index="1" instance=ExtResource("2_kgbs1")]
+position = Vector2(-336, 398)
 
 [node name="PlayerStart" parent="Logic" index="0"]
 position = Vector2(79, -11)
@@ -15,4 +19,4 @@ position = Vector2(515, 251)
 next_level = "level01"
 
 [node name="CollisionPolygon2D" parent="Logic/LevelSuccess" index="0"]
-position = Vector2(-35, 21)
+position = Vector2(226, -223)

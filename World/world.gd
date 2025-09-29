@@ -28,10 +28,7 @@ func _load_level(p_next_level: String )-> void:
 	var level_packed: PackedScene = load(load_path)
 	var current_level: BaseLevel = level_packed.instantiate() as BaseLevel
 	self.current_level_container.add_child(current_level)
-	print("ok")
 	await self.get_tree().process_frame
-	#await current_level.ready
-	print("never?")
 	self.player_start_transform = current_level.player_start.global_transform
 
 func _check_has_current_level()->void:

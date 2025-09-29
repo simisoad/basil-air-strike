@@ -19,14 +19,18 @@ func change_state(new_state: State) -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed('ESC'):
-		if current_state == State.MAIN_MENU:
+		if self.current_state == State.MAIN_MENU:
 			quit_game_signal.emit()
-		elif current_state == State.PLAYING:
+		elif self.current_state == State.PLAYING:
 			change_state(State.PAUSED)
-		elif current_state == State.PAUSED:
+		elif self.current_state == State.PAUSED:
 			change_state(State.PLAYING)
-		elif current_state == State.GAME_OVER:
+		elif self.current_state == State.GAME_OVER:
 			change_state(State.MAIN_MENU)
 		elif self.current_state == State.LEVEL_SELECT:
 			change_state(State.MAIN_MENU)
+	elif event.is_action_pressed('Jump'):
+		if self.current_state == State.GAME_OVER:
+			start_game_signal.emit()
+			change_state(State.PLAYING)
 			

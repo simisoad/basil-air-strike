@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2r1ao17koxdf"
-path="res://.godot/imported/BasilPot.png-a0950aefbde6a219745b54022b0945c1.ctex"
+path="res://.godot/imported/BasilPot.png-ead183beb9f46b969787059e7860e126.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/BasilPot.png"
-dest_files=["res://.godot/imported/BasilPot.png-a0950aefbde6a219745b54022b0945c1.ctex"]
+source_file="res://Objects/BasilPot/BasilPot.png"
+dest_files=["res://.godot/imported/BasilPot.png-ead183beb9f46b969787059e7860e126.ctex"]
 
 [params]
 

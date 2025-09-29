@@ -1,4 +1,5 @@
-extends RigidBody2D
+class_name Skater extends RigidBody2D
+
 
 @export_group("Movement on Floor")
 @export var move_force: float = 800.0
@@ -26,13 +27,18 @@ extends RigidBody2D
 var player_was_in_air: bool = false
 var total_rotation_in_air: float = 0.0
 
+
+
 func _physics_process(delta: float) -> void:
 	_player_inputs(delta)
 	#send the global_position for enemys
 	GameManager.player_moved_signal.emit(self.global_position)
+	SoundManager.play_skater_rolling_sound(self)
 	
 
+
 func _player_inputs(delta: float) -> void:
+	
 	if _is_on_ground():
 		if self.player_was_in_air:
 			_on_landed()
@@ -67,6 +73,7 @@ func _handle_torque_control(direction: float, delta: float) -> void:
 	apply_torque(torque)
 
 func _perform_jump(p_direction: float) -> void:
+	SoundManager.play_skater_jump_sound()
 	self.linear_velocity.y = 0
 	apply_central_impulse(Vector2(
 			p_direction * self.jump_force_x * self.mass, 
@@ -77,6 +84,7 @@ func _track_rotation(p_delta: float) -> void:
 	self.total_rotation_in_air += self.angular_velocity * p_delta
 	
 func _on_landed() -> void:
+	SoundManager.play_skater_landing_sound()
 	var degrees = rad_to_deg(self.total_rotation_in_air)
 	if abs(degrees) >= 350: # Ein bisschen Toleranz
 		GameManager.score_add_signal.emit(self.score_360)
@@ -92,12 +100,15 @@ func _can_jump() -> bool:
 
 func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, local_shape_index: int) -> void:
 	# evtl. nicht so optimales SRP?
+	
 	if body.is_in_group("Projectiles"):
+		SoundManager.play_skater_hurt_sound()
 		GameManager.on_player_hit(pot_damage)
 		return
 	var shape_owner: Node2D = shape_owner_get_owner(local_shape_index)
 
 	if shape_owner.is_in_group("HurtPlayer"):
+		SoundManager.play_skater_hurt_sound()
 		call_deferred("_player_falled")
 		GameManager.on_player_hit(self.fall_damage)
 		
@@ -111,3 +122,4 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		if area.is_in_group("LevelSuccess"):
 			var level_sc: LevelSuccess = area
 			GameManager.next_level_signal.emit(level_sc.next_level)
+				
