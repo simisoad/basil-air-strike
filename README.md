@@ -12,4 +12,5 @@ You play a skater and have to try not to fall over, but also make sure you don't
 ## Branches:
 
 Main: Status of the game at the end of the GameJam.
+
 refactored-clean-code: A first attempt at “Clean-Code.”
