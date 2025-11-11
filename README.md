@@ -1,4 +1,4 @@
-#Basil Air Strike.
+# Basil Air Strike.
 
 A small 2D game developed in the GameDev module as part of a computer science degree.
 
