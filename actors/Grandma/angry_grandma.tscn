@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://3r4p8rk6qqh6"]
+
+[ext_resource type="Texture2D" uid="uid://cqtfur30c66tq" path="res://actors/Grandma/AngryGrandma.png" id="1_rmht1"]
+[ext_resource type="Script" uid="uid://bkh3roaw6b3fq" path="res://actors/Grandma/angry_grandma.gd" id="1_xab6m"]
+[ext_resource type="PackedScene" uid="uid://bbl10g0l15cvd" path="res://projectiles/BasilPot/basil_pot.tscn" id="2_htq08"]
+[ext_resource type="Texture2D" uid="uid://c2r1ao17koxdf" path="res://projectiles/BasilPot/BasilPot.png" id="3_e03gw"]
+[ext_resource type="Script" uid="uid://dylw80aodfq2q" path="res://actors/Grandma/Components/AngryGrandmaSoundComponent.gd" id="5_fdrxg"]
+[ext_resource type="AudioStream" uid="uid://hsaav1u77hgg" path="res://actors/Grandma/Sounds/no.ogg" id="6_bhofx"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dlbw1"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("6_bhofx")
+
+[node name="AngryGrandma" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_xab6m")
+basil_pot_packed = ExtResource("2_htq08")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("1_rmht1")
+
+[node name="PotPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(36, -35)
+
+[node name="FakePot" type="Sprite2D" parent="PotPos"]
+unique_name_in_owner = true
+position = Vector2(-0.99999994, -9.999999)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_e03gw")
+
+[node name="WarnLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -25.0
+offset_top = -79.0
+offset_right = 25.0
+offset_bottom = -50.0
+size_flags_horizontal = 4
+text = "No!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="SoundComponent" type="Node2D" parent="Components"]
+script = ExtResource("5_fdrxg")
+
+[node name="NoSound" type="AudioStreamPlayer2D" parent="Components/SoundComponent"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_dlbw1")
+pitch_scale = 1.25
+max_polyphony = 4
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="ThrowTimer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+
+[node name="WarnTimer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="Timers/ThrowTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/WarnTimer" to="." method="_on_warn_timer_timeout"]

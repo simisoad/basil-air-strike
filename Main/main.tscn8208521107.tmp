@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmk60u4fy03vy"]
+
+[ext_resource type="Script" uid="uid://bewf5al3d1m4v" path="res://Main/main.gd" id="1_qvhan"]
+[ext_resource type="PackedScene" uid="uid://cdr2q2m2wik1b" path="res://World/world.tscn" id="1_yh5la"]
+[ext_resource type="PackedScene" uid="uid://bs3dgqyavuxvp" path="res://GUI/gui.tscn" id="2_2w1kt"]
+[ext_resource type="Script" uid="uid://be6dv47blks63" path="res://Main/GameStateMachineComponent.gd" id="4_eunhr"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_qvhan")
+world_scene = ExtResource("1_yh5la")
+
+[node name="GUI" parent="." instance=ExtResource("2_2w1kt")]
+process_mode = 3
+
+[node name="Components" type="Node" parent="."]
+
+[node name="StateMachineComponent" type="Node" parent="Components"]
+unique_name_in_owner = true
+script = ExtResource("4_eunhr")

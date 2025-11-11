@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_kan3s"]
 [ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_j6ju7"]
-[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="2_kgbs1"]
+[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://actors/Grandma/angry_grandma.tscn" id="2_kgbs1"]
 [ext_resource type="Texture2D" uid="uid://dfw3arcf8qbi1" path="res://Objects/Warning.png" id="4_rhl2d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kgbs1"]

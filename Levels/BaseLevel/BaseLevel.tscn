@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dcj5gq8gle60k" path="res://Levels/BaseLevel/BaseLevel.gd" id="1_nekfv"]
 [ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_2h7hq"]
-[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="3_0t0ry"]
+[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://actors/Grandma/angry_grandma.tscn" id="3_0t0ry"]
 [ext_resource type="Script" uid="uid://de2sn2wrj8jbp" path="res://LevelBuilder/level_success.gd" id="3_j345y"]
 
 [node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("grandmas", "player_start")]

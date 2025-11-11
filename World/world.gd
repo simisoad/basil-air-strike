@@ -1,64 +1,62 @@
-extends Node2D
+class_name GameWorld extends Node2D
+@export_category("Actors")
+@export var player_packed: PackedScene
+@export var player_stats_template: PlayerStats
 
-@onready var player_start_transform: Transform2D
-@onready var current_level_container: Node2D = %CurrentLevelContainer
+@onready var player_spawner: WorldPlayerSpawnerComponent = %PlayerSpawnerComponent
+@onready var level_loader: WorldLevelLoaderComponent = %LevelLoaderComponent
 
-var player_packed: PackedScene = load('res://Player/player.tscn')
-var player: RigidBody2D
-
+var current_level: BaseLevel
+var player_instance: Player
+var runtime_stats: PlayerStats
+var level_database: LevelDatabase
 func _ready() -> void:
-	await _load_level(GameManager.start_level_key)
-	_create_player(self.player_start_transform)
-	GameManager.game_restarted_signal.connect(_on_game_restarted)
-	GameManager.player_falled_signal.connect(_on_player_falled)
-	GameManager.next_level_signal.connect(_on_next_level)
-	GameManager.player_died_signal.connect(_on_player_died)
-#hmm, ok, what if when the first level isn't called tutorial enymore?
-func _load_level(p_next_level: String )-> void:
-	_check_has_current_level()
-	await self.get_tree().process_frame
-	var load_path: String = LevelsManager.get_level(p_next_level)
-	if not load_path:
-		push_error("Level: %s was not found in LevelManager!" % p_next_level)
-		#Fallback:
-		load_path = LevelsManager.get_level(LevelsManager.get_first_level())
+	pass
+func initialize(_level_database: LevelDatabase) -> void:
+	if not _level_database:
+		print("hö?")
+	level_database = _level_database
+	level_loader.level_database = level_database
+	# TODO: Error-Handling
+	runtime_stats = player_stats_template.duplicate()
+	EventBus.level_retried.connect(_on_retry_level)
+	await start_level(level_database.start_level_key)
+	EventBus.next_level_reached.connect(_on_next_level)
 
-	var level_packed: PackedScene = load(load_path)
-	var current_level: BaseLevel = level_packed.instantiate() as BaseLevel
-	self.current_level_container.add_child(current_level)
-	await self.get_tree().process_frame
-	self.player_start_transform = current_level.player_start.global_transform
+func start_level(level_key: String) -> void:
+	current_level = await level_loader.load_level(level_key)
+	var player_start_transform: Transform2D = current_level.player_start.global_transform
+	_spawn_player(player_start_transform)
 
-func _check_has_current_level()->void:
-	if self.current_level_container.get_child_count() > 0:
-		var childs: Array = self.current_level_container.get_children()
-		for child: Node in childs:
-			child.queue_free()
+func _spawn_player(at_transform: Transform2D) -> void:
+	player_instance = player_spawner.spawn_player(player_packed, at_transform)
+	add_child(player_instance)
 
-func _create_player(p_transform: Transform2D) -> void:
-	self.player = self.player_packed.instantiate()
-	self.player.global_transform = p_transform
-	self.call_deferred("add_child", self.player)
+	# Gib dem neuen Spieler die persistenten Stats und verbinde seine Signale
+	player_instance.initialize(runtime_stats)
+	player_instance.player_falled_signal.connect(_on_player_falled)
+	player_instance.player_died_signal.connect(_on_player_died)
 
-func _on_game_restarted()-> void:
-	_remove_player()
-	_create_player(self.player_start_transform)
+func _on_player_falled(fall_position: Vector2) -> void:
+	_despawn_player()
+	var reset_transform = Transform2D(0.0, fall_position + Vector2(0, -50))
+	_spawn_player(reset_transform)
 
 func _on_player_died() -> void:
-	call_deferred("_remove_player")
+	_despawn_player()
+	runtime_stats.health = runtime_stats.initial_health
+	runtime_stats.current_score = 0
+	EventBus.player_died.emit()
+	#GameStateManager.change_state(GameStateManager.State.GAME_OVER)
 
-func _remove_player() -> void:
-	if is_instance_valid(self.player):
-		self.player.queue_free()
+func _despawn_player() -> void:
+	if is_instance_valid(player_instance):
+		player_instance.queue_free()
 
+func _on_retry_level() -> void:
+	_spawn_player(current_level.player_start.global_transform)
 
-func _on_player_falled(p_fall_position: Vector2) -> void:
-	if is_instance_valid(self.player):
-		self.player.queue_free()
-	var reset_transform = Transform2D(0.0, p_fall_position + Vector2(0, -50)) # Etwas über dem Boden
-	_create_player(reset_transform)
-
-func _on_next_level(p_next_level: String)-> void:
-	LevelsManager.update_and_save_progress(p_next_level)
-	await _load_level(p_next_level)
-	_on_game_restarted()
+func _on_next_level(next_level: String)-> void:
+	_despawn_player()
+	level_database.update_and_save_progress(next_level)
+	start_level(next_level)

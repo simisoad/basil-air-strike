@@ -11,12 +11,12 @@ func _ready() -> void:
 
 
 func _set_collision()-> void:
-	self.collision_polygon_2d.polygon = self.polygon
-	self.occluder2D.polygon = self.polygon
-	self.particle_occluder.occluder = self.occluder2D
+	collision_polygon_2d.polygon = polygon
+	occluder2D.polygon = polygon
+	particle_occluder.occluder = occluder2D
 
 
 func _structure_setup()->void:
-	self.add_child(self.static_body)
-	self.static_body.add_child(self.collision_polygon_2d)
-	self.static_body.add_child(self.particle_occluder)
+	add_child(static_body)
+	static_body.add_child(collision_polygon_2d)
+	static_body.add_child(particle_occluder)

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="LevelDataBase" load_steps=2 format=3 uid="uid://cbb7t88t72cj5"]
+
+[ext_resource type="Script" uid="uid://b02wjniy3x72n" path="res://Levels/LevelDatabase.gd" id="1_uv0io"]
+
+[resource]
+script = ExtResource("1_uv0io")

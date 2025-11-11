@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://byvmqe52k7g2t"]
 
 [ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_36tc4"]
-[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="2_jkiok"]
+[ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://actors/Grandma/angry_grandma.tscn" id="2_jkiok"]
 [ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_yasy0"]
 [ext_resource type="Texture2D" uid="uid://dfw3arcf8qbi1" path="res://Objects/Warning.png" id="4_yasy0"]
 
