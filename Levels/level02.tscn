@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwj5pdfd6f0i4"]
+[gd_scene load_steps=5 format=3 uid="uid://bwj5pdfd6f0i4"]
 
 [ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_1do76"]
 [ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_mjnho"]
 [ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="3_2arlq"]
+[ext_resource type="Texture2D" uid="uid://dfw3arcf8qbi1" path="res://Objects/Warning.png" id="4_brs6p"]
 
 [node name="Level01" instance=ExtResource("1_1do76")]
 
@@ -16,11 +17,32 @@ polygon = PackedVector2Array(-137, 15, -152, 96, -138, 199, -51, 199, -53, 31, -
 script = ExtResource("2_mjnho")
 metadata/_custom_type_script = "uid://dio2plhcfrhyn"
 
+[node name="StructurePolygon3" type="Polygon2D" parent="Structures" index="2"]
+position = Vector2(-28, 0)
+polygon = PackedVector2Array(1435, 421, 1491, 354, 1672, 327, 1772, 243, 2024, 242, 2111, 130, 2253, 125, 2266, 713, 2193, 724, 1304, 678, 1183, 524, 1429, 529)
+script = ExtResource("2_mjnho")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon4" type="Polygon2D" parent="Structures" index="3"]
+position = Vector2(-28, 0)
+polygon = PackedVector2Array(2229, 235, 2652.5303, 232.7053, 3521, 228, 3518, 761, 2020, 757, 2219, 240)
+script = ExtResource("2_mjnho")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon5" type="Polygon2D" parent="Structures" index="4"]
+position = Vector2(-28, 0)
+polygon = PackedVector2Array(3447, 262, 3884, 61, 3947, -116, 3775, -176, 4333, -170, 4332, 580, 3514, 754)
+script = ExtResource("2_mjnho")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
 [node name="AngryGrandma" parent="Enemys/grandmas" index="0"]
 position = Vector2(527, 116)
 
 [node name="AngryGrandma2" parent="Enemys/grandmas" index="1" instance=ExtResource("3_2arlq")]
 position = Vector2(780, 123)
+
+[node name="AngryGrandma3" parent="Enemys/grandmas" index="2" instance=ExtResource("3_2arlq")]
+position = Vector2(2149, -152)
 
 [node name="PlayerStart" parent="Logic" index="0"]
 position = Vector2(0, 130)
@@ -30,5 +52,9 @@ position = Vector2(1009, 214)
 next_level = "tutorial"
 
 [node name="CollisionPolygon2D" parent="Logic/LevelSuccess" index="0"]
-position = Vector2(93, 151)
-polygon = PackedVector2Array(-85, -81, 85, 132, 175, 87, 167, -104)
+position = Vector2(1453, -14)
+polygon = PackedVector2Array(793, -187, 787, 27, 1023, 31, 1022, -208)
+
+[node name="Warning" type="Sprite2D" parent="." index="3"]
+position = Vector2(3374, 115)
+texture = ExtResource("4_brs6p")

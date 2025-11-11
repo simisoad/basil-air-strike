@@ -25,12 +25,18 @@ Debug="*res://Autoload/debug.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/folder_structure_export/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[folder_structure_export]
+
+exclusions/excluded_dirs=["addons", ".godot", ".git", "build"]
+exclusions/output_path="folder_structure.txt"
 
 [global_group]
 
 Projectiles=""
 LevelSuccess=""
+PlayerArea=""
 
 [input]
 

@@ -1,15 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://byvmqe52k7g2t"]
+[gd_scene load_steps=5 format=3 uid="uid://byvmqe52k7g2t"]
 
 [ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_36tc4"]
 [ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="2_jkiok"]
 [ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_yasy0"]
+[ext_resource type="Texture2D" uid="uid://dfw3arcf8qbi1" path="res://Objects/Warning.png" id="4_yasy0"]
 
 [node name="Level01" instance=ExtResource("1_36tc4")]
 
 [node name="StructurePolygon" parent="Structures" index="0"]
 polygon = PackedVector2Array(-110, 197, 47, 196, 82, 334, 389, 338, 400, 277, 435, 280, 496, 388, 664, 391, 690, 335, 764, 339, 831, 408, 1214, 411, 1229, 586, -57, 594)
 
-[node name="StructurePolygon2" type="Polygon2D" parent="Structures" index="1"]
+[node name="StructurePolygon3" type="Polygon2D" parent="Structures" index="1"]
+polygon = PackedVector2Array(1210, 410, 1766, 330, 1861, 255, 2214, 251, 2377, 2, 2463, -89, 2538, 389, 2240, 629, 1229, 587)
+script = ExtResource("2_yasy0")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon2" type="Polygon2D" parent="Structures" index="2"]
 position = Vector2(-28, 0)
 color = Color(0.22745098, 1, 1, 1)
 polygon = PackedVector2Array(-137, 15, -152, 96, -138, 199, -51, 199, -53, 31, -128, 14)
@@ -26,9 +32,13 @@ position = Vector2(780, 123)
 position = Vector2(0, 130)
 
 [node name="LevelSuccess" parent="Logic" index="1"]
-position = Vector2(1009, 214)
+position = Vector2(1965, 29)
 next_level = "level02"
 
 [node name="CollisionPolygon2D" parent="Logic/LevelSuccess" index="0"]
 position = Vector2(93, 151)
-polygon = PackedVector2Array(-85, -81, 85, 132, 175, 87, 167, -104)
+polygon = PackedVector2Array(-85, -81, -78, 120, 175, 87, 167, -104)
+
+[node name="Warning" type="Sprite2D" parent="." index="3"]
+position = Vector2(2096, 157)
+texture = ExtResource("4_yasy0")

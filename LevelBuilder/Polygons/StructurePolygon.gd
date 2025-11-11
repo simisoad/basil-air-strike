@@ -8,13 +8,13 @@ class_name StructurePolygon extends Polygon2D
 func _ready() -> void:
 	_set_collision()
 	_structure_setup()
-	
-	
+
+
 func _set_collision()-> void:
 	self.collision_polygon_2d.polygon = self.polygon
 	self.occluder2D.polygon = self.polygon
 	self.particle_occluder.occluder = self.occluder2D
-	
+
 
 func _structure_setup()->void:
 	self.add_child(self.static_body)

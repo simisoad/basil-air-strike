@@ -1,22 +1,76 @@
-[gd_scene load_steps=3 format=3 uid="uid://l2jn737ctl78"]
+[gd_scene load_steps=6 format=3 uid="uid://l2jn737ctl78"]
 
 [ext_resource type="PackedScene" uid="uid://dowwa5tfhqrrl" path="res://Levels/BaseLevel/BaseLevel.tscn" id="1_kan3s"]
+[ext_resource type="Script" uid="uid://dio2plhcfrhyn" path="res://LevelBuilder/Polygons/StructurePolygon.gd" id="2_j6ju7"]
 [ext_resource type="PackedScene" uid="uid://3r4p8rk6qqh6" path="res://Grandma/angry_grandma.tscn" id="2_kgbs1"]
+[ext_resource type="Texture2D" uid="uid://dfw3arcf8qbi1" path="res://Objects/Warning.png" id="4_rhl2d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kgbs1"]
+radius = 677.30347
 
 [node name="Level01" instance=ExtResource("1_kan3s")]
 
 [node name="StructurePolygon" parent="Structures" index="0"]
-polygon = PackedVector2Array(-63, 40, 164, 38, 167, 521, 665, 373, 659, 94, 971, 77, 1012, 606, -136, 615, -53, 48)
+polygon = PackedVector2Array(-1641, -815, -1250, -819, -260, -304, 3289, -301, 3289, 17, -1706, 17)
 
-[node name="AngryGrandma2" parent="Enemys/grandmas" index="1" instance=ExtResource("2_kgbs1")]
-position = Vector2(-336, 398)
+[node name="StructurePolygon5" type="Polygon2D" parent="Structures" index="1"]
+polygon = PackedVector2Array(873, -256, 1081, -421, 1173, -421, 1293, -269, 882, -258)
+script = ExtResource("2_j6ju7")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon6" type="Polygon2D" parent="Structures" index="2"]
+polygon = PackedVector2Array(2744, -286, 2737, -379, 2867, -381, 2863, -451, 2941, -449, 2969, -274)
+script = ExtResource("2_j6ju7")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon2" type="Polygon2D" parent="Structures" index="3"]
+polygon = PackedVector2Array(3572, -287, 4719, -297, 4977, -429, 5209, -750, 5219, -1216, 5133, -1388, 4808, -1568, 5019, -1796, 5847, -1789, 5896, 265, 3269, 258, 3158, -301)
+script = ExtResource("2_j6ju7")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon4" type="Polygon2D" parent="Structures" index="4"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(4283, -1340, 4483, -888, 4735, -1343)
+script = ExtResource("2_j6ju7")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="StructurePolygon3" type="Polygon2D" parent="Structures" index="5"]
+color = Color(0.26666668, 1, 1, 1)
+polygon = PackedVector2Array(-2492, -1782, -1725, -1785, -1535, 27, -2519, -14)
+script = ExtResource("2_j6ju7")
+metadata/_custom_type_script = "uid://dio2plhcfrhyn"
+
+[node name="AngryGrandma" parent="Enemys/grandmas" index="0" node_paths=PackedStringArray("throw_activate_aera")]
+position = Vector2(780, -530)
+throw_activate_aera = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Enemys/grandmas/AngryGrandma" index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemys/grandmas/AngryGrandma/Area2D" index="0"]
+shape = SubResource("CircleShape2D_kgbs1")
+
+[node name="AngryGrandma2" parent="Enemys/grandmas" index="1" node_paths=PackedStringArray("throw_activate_aera") instance=ExtResource("2_kgbs1")]
+position = Vector2(2475, -451)
+throw_activate_aera = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Enemys/grandmas/AngryGrandma2" index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemys/grandmas/AngryGrandma2/Area2D" index="0"]
+position = Vector2(-17, 7)
+shape = SubResource("CircleShape2D_kgbs1")
 
 [node name="PlayerStart" parent="Logic" index="0"]
-position = Vector2(79, -11)
+position = Vector2(-1468, -943)
 
 [node name="LevelSuccess" parent="Logic" index="1"]
-position = Vector2(515, 251)
+position = Vector2(2901, -177)
 next_level = "level01"
 
 [node name="CollisionPolygon2D" parent="Logic/LevelSuccess" index="0"]
-position = Vector2(226, -223)
+position = Vector2(1576, -265)
+polygon = PackedVector2Array(117, 176, -173, 176, -176, -304, 466, -301, 463, 82)
+
+[node name="Warning" type="Sprite2D" parent="." index="3"]
+modulate = Color(8.961672, 18.892157, 18.892157, 1)
+position = Vector2(4532, -439)
+texture = ExtResource("4_rhl2d")

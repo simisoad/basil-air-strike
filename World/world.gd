@@ -7,9 +7,7 @@ var player_packed: PackedScene = load('res://Player/player.tscn')
 var player: RigidBody2D
 
 func _ready() -> void:
-	print("sali")
 	await _load_level(GameManager.start_level_key)
-	print(self.player_start_transform)
 	_create_player(self.player_start_transform)
 	GameManager.game_restarted_signal.connect(_on_game_restarted)
 	GameManager.player_falled_signal.connect(_on_player_falled)
@@ -41,19 +39,19 @@ func _create_player(p_transform: Transform2D) -> void:
 	self.player = self.player_packed.instantiate()
 	self.player.global_transform = p_transform
 	self.call_deferred("add_child", self.player)
-	
+
 func _on_game_restarted()-> void:
 	_remove_player()
 	_create_player(self.player_start_transform)
-	
+
 func _on_player_died() -> void:
 	call_deferred("_remove_player")
-	
+
 func _remove_player() -> void:
 	if is_instance_valid(self.player):
 		self.player.queue_free()
 
-		
+
 func _on_player_falled(p_fall_position: Vector2) -> void:
 	if is_instance_valid(self.player):
 		self.player.queue_free()

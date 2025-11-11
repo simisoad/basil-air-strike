@@ -16,7 +16,7 @@ func _ready() -> void:
 func change_state(new_state: State) -> void:
 	self.current_state = new_state
 	self.state_changed_signal.emit(new_state)
-	
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed('ESC'):
 		if self.current_state == State.MAIN_MENU:
@@ -33,4 +33,3 @@ func _input(event: InputEvent) -> void:
 		if self.current_state == State.GAME_OVER:
 			start_game_signal.emit()
 			change_state(State.PLAYING)
-			

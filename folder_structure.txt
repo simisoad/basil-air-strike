@@ -1,0 +1,95 @@
+basil-air-strike
+├───Autoload
+│   ├───GameManager.gd
+│   ├───GameManager.gd.uid
+│   ├───GameStateManager.gd
+│   ├───GameStateManager.gd.uid
+│   ├───debug.gd
+│   └───debug.gd.uid
+├───GUI
+│   ├───HUD
+│   │   ├───LabelSettings.tres
+│   │   ├───hud.gd
+│   │   ├───hud.gd.uid
+│   │   └───hud.tscn
+│   ├───MainTitleLabelSettings.tres
+│   ├───gui.gd
+│   ├───gui.gd.uid
+│   └───gui.tscn
+├───Grandma
+│   ├───AngryGrandma.png
+│   ├───angry_grandma.gd
+│   ├───angry_grandma.gd.uid
+│   └───angry_grandma.tscn
+├───LevelBuilder
+│   ├───Polygons
+│   │   ├───StructurePolygon.gd
+│   │   └───StructurePolygon.gd.uid
+│   ├───level_success.gd
+│   ├───level_success.gd.uid
+│   └───level_success.tscn
+├───Levels
+│   ├───BaseLevel
+│   │   ├───BaseLevel.gd
+│   │   ├───BaseLevel.gd.uid
+│   │   └───BaseLevel.tscn
+│   ├───level00.tscn
+│   ├───level01.tscn
+│   ├───level02.tscn
+│   ├───levels_manager.gd
+│   └───levels_manager.gd.uid
+├───Main
+│   ├───main.gd
+│   ├───main.gd.uid
+│   └───main.tscn
+├───Objects
+│   ├───BasilPot
+│   │   ├───Effects
+│   │   │   ├───pot_explode.gd
+│   │   │   ├───pot_explode.gd.uid
+│   │   │   └───pot_explode.tscn
+│   │   ├───BasilPot.png
+│   │   ├───basil_pot.gd
+│   │   ├───basil_pot.gd.uid
+│   │   └───basil_pot.tscn
+│   └───Warning.png
+├───Player
+│   ├───Sprites
+│   │   └───Skateboarder.png
+│   ├───Skater.tscn6823392642.tmp
+│   ├───player.gd
+│   ├───player.gd.uid
+│   └───player.tscn
+├───Sounds
+│   ├───AngryGrandma
+│   │   └───no.ogg
+│   ├───Health
+│   │   └───HealthAdd.wav
+│   ├───PotSounds
+│   ├───SkaterSounds
+│   │   ├───Pot_Shattering01.wav
+│   │   ├───Pot_Shattering02.wav
+│   │   ├───Pot_Shattering03.wav
+│   │   ├───Skater_landing.wav
+│   │   ├───player_hurt01.wav
+│   │   ├───player_hurt02.wav
+│   │   ├───pot_shattering_audio.gd
+│   │   ├───pot_shattering_audio.gd.uid
+│   │   ├───pot_shattering_audio.tres
+│   │   ├───sakte02.wav
+│   │   ├───skate01.wav
+│   │   ├───skate03.wav
+│   │   └───skate_jump_up.wav
+│   ├───SoundManager.gd
+│   ├───SoundManager.gd.uid
+│   └───sound_manager.tscn
+├───World
+│   ├───world.gd
+│   ├───world.gd.uid
+│   ├───world.tscn
+│   └───world.tscn48066182866.tmp
+├───LICENSE
+├───README.md
+├───folder_structure.txt
+├───icon.svg
+└───project.godot

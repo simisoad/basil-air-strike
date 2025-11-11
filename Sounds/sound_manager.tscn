@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b15g0bi5kcrg6"]
+[gd_scene load_steps=16 format=3 uid="uid://b15g0bi5kcrg6"]
 
 [ext_resource type="Script" uid="uid://dylw80aodfq2q" path="res://Sounds/SoundManager.gd" id="1_qt0tq"]
 [ext_resource type="AudioStream" uid="uid://bvdmag0iacqeo" path="res://Sounds/SkaterSounds/sakte02.wav" id="3_dlbw1"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://dn07wfy85nl7t" path="res://Sounds/SkaterSounds/player_hurt01.wav" id="8_6qnd0"]
 [ext_resource type="AudioStream" uid="uid://dnp6f0hlk3asy" path="res://Sounds/SkaterSounds/player_hurt02.wav" id="9_j6jge"]
 [ext_resource type="AudioStream" uid="uid://hsaav1u77hgg" path="res://Sounds/AngryGrandma/no.ogg" id="9_ro2ns"]
+[ext_resource type="AudioStream" uid="uid://dskqe7f8bsyth" path="res://Sounds/Health/HealthAdd.wav" id="10_dlbw1"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ektlu"]
 random_pitch = 1.05
@@ -72,3 +73,9 @@ unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_dlbw1")
 pitch_scale = 1.25
 max_polyphony = 4
+
+[node name="SoundEffects" type="Node2D" parent="."]
+
+[node name="HealthAddSound" type="AudioStreamPlayer2D" parent="SoundEffects"]
+unique_name_in_owner = true
+stream = ExtResource("10_dlbw1")
