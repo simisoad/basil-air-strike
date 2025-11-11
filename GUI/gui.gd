@@ -25,7 +25,7 @@ func _check_is_continue_possible() -> void:
 		button_continue_game.disabled = true
 	else:
 		button_continue_game.disabled = false
-	
+
 func _on_game_state_changed(new_state: GameStateManager.State) -> void:
 	# Zuerst alles ausblenden
 	self.main_menu.hide()
@@ -48,7 +48,7 @@ func _on_game_state_changed(new_state: GameStateManager.State) -> void:
 		GameStateManager.State.LEVEL_SELECT:
 			_set_level_to_select()
 			self.level_select.show()
-			
+
 func _on_button_continue_game_pressed() -> void:
 	var highest_level = LevelsManager.load_highest_level()
 	GameManager.start_level_key = highest_level

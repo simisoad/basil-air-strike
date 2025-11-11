@@ -8,7 +8,7 @@ func _ready() -> void:
 	GameStateManager.start_game_signal.connect(_on_start_game)
 	GameStateManager.state_changed_signal.connect(_on_game_state_changed)
 	GameStateManager.quit_game_signal.connect(_on_game_quit)
-	
+
 func _on_start_game():
 	if self.current_world == null:
 		self.current_world = self.world_scene.instantiate()
